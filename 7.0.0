@@ -1,0 +1,4 @@
+Collecting pillow
+  Using cached https://files.pythonhosted.org/packages/20/59/edb6fe64a608afc9fd1faf3470774b4131b4be9d40c496b0c144033e249a/Pillow-5.4.1-cp37-cp37m-win_amd64.whl
+Installing collected packages: pillow
+Successfully installed pillow-5.4.1

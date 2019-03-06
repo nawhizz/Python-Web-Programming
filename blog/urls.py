@@ -1,4 +1,4 @@
-from django.conf.urls import url
+#from django.conf.urls import url
 from django.urls import path
 from blog.views import *
 
@@ -36,4 +36,36 @@ urlpatterns = [
     # Example: /today/
     #url(r'^today/$', PostTAV.as_view(), name='post_today_archive'),
     path('today/', PostTAV.as_view(), name='post_today_archive'),
+
+    # Example: /tag/
+    #url(r'^tag/$', TagTV.as_view(), name='tag_cloud'),
+    path('tag/', TagTV.as_view(), name='tag_cloud'),
+
+    # Example: /tag/tagname/
+    #url(r'^tag/(?P<tag>[^/]+(?u))/$', PostTOL.as_view(), name='tagged_object_list'),
+    path('tag/<str:tag>/', PostTOL.as_view(), name='tagged_object_list'),
+
+    # Example: /search/
+    #url (r'^search/$', SearchFormView.as_view(), name='search'),
+    path('search/', SearchFormView.as_view(), name='search'),
+
+    # Example: /add/
+    path('add/',
+         PostCreateView.as_view(), name="add",
+    ),
+
+    # Example: /change/
+    path('change/',
+         PostChangeLV.as_view(), name="change",
+    ),
+
+    # Example: /99/update/
+    path('<int:pk>/update/',
+         PostUpdateView.as_view(), name="update",
+    ),
+
+    # Example: /99/delete/
+    path('<int:pk>/delete/',
+         PostDeleteView.as_view(), name="delete",
+    ),
 ]

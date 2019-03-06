@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+# 날짜 포맷 변경을 위한 모듈 로딩
+from django.conf.locale.ko import formats as ko_formats
+# 날짜 포맷 설정
+ko_formats.DATETIME_FORMAT = 'Y-m-d G:i:s'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,9 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'bookmark.apps.BookmarkConfig',     # 추가
     'blog.apps.BlogConfig',             # 추가
+    'tagging.apps.TaggingConfig',       # 추가
+    'disqus',                           # 추가
+    'django.contrib.sites',             # 추가
+    'photo.apps.PhotoConfig',           # 추가
 ]
+
+DISQUS_WEBSITE_SHORTNAME = 'python-web-programming-django-whsmnehrtb'
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -57,7 +70,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         #'DIRS': [],
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],      # 수정
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],      # 프로젝트 템플릿 디렉터리
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,8 +136,15 @@ USE_TZ = False  # Models의 dateteim에오 TIME_ZONE 설정값이 적용되게 �
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+# 이 아이피에서만 디버그 툴바가 보인다.
+INTERNAL_IPS = ('127.0.0.1',)
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]   # 추가
 
 MEDIA_URL = '/media/'                           # 추가
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 추가
+
+#LOGIN_URL = '/accounts/login/'
+#LOGOUT_URL = '/accounts/logout/'
+LOGIN_REDIRECT_URL = '/'

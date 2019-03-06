@@ -5,7 +5,7 @@ from .models import Bookmark
 
 
 class BookmarkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url')
+    list_display = ('title', 'url', 'owner')
 
 
 admin.site.register(Bookmark, BookmarkAdmin)
